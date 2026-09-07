@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mi Maqueta 3D</title>
+  <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.4.0/model-viewer.min.js"></script>
+  <style>
+    body { margin: 0; background-color: #f0f0f0; }
+    model-viewer { width: 100vw; height: 100vh; }
+  </style>
+</head>
+<body>
+  <model-viewer src="maqueta.glb" camera-controls auto-rotate ar shadow-intensity="1"></model-viewer>
+</body>
+</html>
