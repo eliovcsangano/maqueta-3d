@@ -3,17 +3,43 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Mi Maqueta 3D</title>
-  <!-- Cargamos el visor de Google -->
+  <title>Proyecto de Matemática</title>
   <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
   <style>
-    /* Fondo oscuro para contraste perfecto */
     body { 
       margin: 0; 
       padding: 0; 
       background-color: #1a1a1a; 
       font-family: sans-serif;
+      overflow: hidden; /* Evita barras de desplazamiento */
     }
+    
+    /* Estilos para el cartel del título */
+    .cartel-titulo {
+      position: absolute;
+      top: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(0, 0, 0, 0.6);
+      color: white;
+      padding: 15px 35px;
+      border-radius: 12px;
+      text-align: center;
+      z-index: 10;
+      backdrop-filter: blur(4px); /* Efecto cristal transparente */
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+    .cartel-titulo h1 {
+      margin: 0;
+      font-size: 26px;
+      letter-spacing: 1px;
+    }
+    .cartel-titulo p {
+      margin: 5px 0 0 0;
+      font-size: 15px;
+      color: #cccccc;
+    }
+
     model-viewer { 
       width: 100vw; 
       height: 100vh; 
@@ -22,30 +48,33 @@
 </head>
 <body>
 
-  <!-- Visor 3D con luces y sombras mejoradas -->
+  <!-- Título del Proyecto -->
+  <div class="cartel-titulo">
+    <h1>Proyecto de Matemática</h1>
+    <p>Nuriel Ore Mauri</p>
+  </div>
+
+  <!-- Visor 3D con luces corregidas para resaltar alturas -->
   <model-viewer 
     id="maqueta" 
     src="maqueta.glb" 
     camera-controls 
     auto-rotate 
-    shadow-intensity="1.5" 
-    exposure="1.2">
+    shadow-intensity="2" 
+    shadow-softness="1"
+    exposure="0.7" 
+    environment-image="neutral">
   </model-viewer>
 
-  <!-- Script para pintar el modelo automáticamente al cargar -->
   <script>
     const viewer = document.querySelector('#maqueta');
 
     viewer.addEventListener('load', () => {
-      // Recorre todas las partes del modelo 3D
       for (const material of viewer.model.materials) {
-        
-        // 1. Aplica un color Beige/Crema Arquitectónico (Rojo, Verde, Azul, Opacidad)
-        material.pbrMetallicRoughness.setBaseColorFactor([0.85, 0.80, 0.70, 1]);
-        
-        // 2. Le da un acabado mate (tipo yeso o cartón) para que las luces marquen bien los bordes
-        material.pbrMetallicRoughness.setRoughnessFactor(0.9);
-        material.pbrMetallicRoughness.setMetallicFactor(0.0);
+        // Tono beige ligeramente más oscuro y mate para que la luz dibuje sombras
+        material.pbrMetallicRoughness.setBaseColorFactor([0.75, 0.70, 0.60, 1]);
+        material.pbrMetallicRoughness.setRoughnessFactor(1);
+        material.pbrMetallicRoughness.setMetallicFactor(0);
       }
     });
   </script>
