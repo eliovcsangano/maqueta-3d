@@ -16,90 +16,62 @@
     
     /* Cartel del Título (Arriba Centro) */
     .cartel-titulo {
-      position: absolute;
-      top: 30px;
-      left: 50%;
-      transform: translateX(-50%);
-      background: rgba(0, 0, 0, 0.6);
-      color: white;
-      padding: 15px 35px;
-      border-radius: 12px;
-      text-align: center;
-      z-index: 10;
-      backdrop-filter: blur(4px);
-      border: 1px solid rgba(255, 255, 255, 0.2);
+      position: absolute; top: 30px; left: 50%; transform: translateX(-50%);
+      background: rgba(0, 0, 0, 0.6); color: white; padding: 15px 35px;
+      border-radius: 12px; text-align: center; z-index: 10;
+      backdrop-filter: blur(4px); border: 1px solid rgba(255, 255, 255, 0.2);
     }
-    .cartel-titulo h1 {
-      margin: 0;
-      font-size: 26px;
-      letter-spacing: 1px;
-    }
+    .cartel-titulo h1 { margin: 0; font-size: 26px; letter-spacing: 1px; }
 
     /* Cartel de Integrantes (Abajo Izquierda) */
     .cartel-integrantes {
-      position: absolute;
-      bottom: 30px;
-      left: 30px;
-      background: rgba(0, 0, 0, 0.6);
-      color: white;
-      padding: 15px 25px;
-      border-radius: 12px;
-      z-index: 10;
-      backdrop-filter: blur(4px);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      min-width: 160px;
+      position: absolute; bottom: 30px; left: 30px;
+      background: rgba(0, 0, 0, 0.6); color: white; padding: 15px 25px;
+      border-radius: 12px; z-index: 10; backdrop-filter: blur(4px);
+      border: 1px solid rgba(255, 255, 255, 0.2); min-width: 160px;
     }
     .cartel-integrantes h2 {
-      margin: 0 0 10px 0;
-      font-size: 16px;
-      color: #ffffff;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-      padding-bottom: 5px;
+      margin: 0 0 10px 0; font-size: 16px; border-bottom: 1px solid rgba(255, 255, 255, 0.2); padding-bottom: 5px;
     }
-    .cartel-integrantes ul {
-      margin: 0;
-      padding-left: 18px;
+    .cartel-integrantes ul { margin: 0; padding-left: 18px; font-size: 14px; color: #dddddd; line-height: 1.6; }
+
+    /* --- DISEÑO DE LAS ETIQUETAS DE LOS EDIFICIOS --- */
+    .etiqueta-3d {
+      background: rgba(255, 255, 255, 0.9);
+      color: #000;
+      border: none;
+      border-radius: 6px;
+      padding: 8px 15px;
+      font-family: sans-serif;
+      font-weight: bold;
       font-size: 14px;
-      color: #dddddd;
-      line-height: 1.6;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.4);
+      cursor: pointer;
+    }
+    .etiqueta-3d::after { /* Hace la flechita que apunta al edificio */
+      content: ""; position: absolute; left: 50%; top: 100%; transform: translateX(-50%);
+      border: 8px solid transparent; border-top-color: rgba(255, 255, 255, 0.9);
     }
 
-    model-viewer { 
-      width: 100vw; 
-      height: 100vh; 
-    }
+    model-viewer { width: 100vw; height: 100vh; }
   </style>
 </head>
 <body>
 
-  <!-- Título del Proyecto -->
-  <div class="cartel-titulo">
-    <h1>Proyecto de Matemática</h1>
-  </div>
-
-  <!-- Cuadro de Integrantes -->
+  <div class="cartel-titulo"><h1>Proyecto de Matemática</h1></div>
   <div class="cartel-integrantes">
     <h2>Integrantes:</h2>
     <ul>
-      <li>DARICKXS</li>
-      <li>Nuriel</li>
-      <li>Yusey</li>
-      <li>Yoselin</li>
-      <li>Chenoa</li>
-      <li>Damaris</li>
+      <li>DARICKXS</li><li>Nuriel</li><li>Yusey</li><li>Yoselin</li><li>Chenoa</li><li>Damaris</li>
     </ul>
   </div>
 
-  <!-- Visor 3D -->
-  <model-viewer 
-    id="maqueta" 
-    src="maqueta.glb" 
-    camera-controls 
-    auto-rotate 
-    shadow-intensity="2" 
-    shadow-softness="1"
-    exposure="0.7" 
-    environment-image="neutral">
+  <model-viewer id="maqueta" src="maqueta.glb" camera-controls auto-rotate shadow-intensity="2" shadow-softness="1" exposure="0.7" environment-image="neutral">
+    
+    <!-- AQUÍ VAN LAS ETIQUETAS (Por ahora pongo 2 de ejemplo en el centro) -->
+    <button class="etiqueta-3d" slot="hotspot-1" data-position="0 1 0" data-normal="0 1 0">Hospital</button>
+    <button class="etiqueta-3d" slot="hotspot-2" data-position="0 2 0" data-normal="0 1 0">Colegio</button>
+
   </model-viewer>
 
   <script>
@@ -110,6 +82,15 @@
         material.pbrMetallicRoughness.setBaseColorFactor([0.75, 0.70, 0.60, 1]);
         material.pbrMetallicRoughness.setRoughnessFactor(1);
         material.pbrMetallicRoughness.setMetallicFactor(0);
+      }
+    });
+
+    // TRUCO MÁGICO: Doble clic para encontrar coordenadas
+    viewer.addEventListener('dblclick', (event) => {
+      const hit = viewer.positionAndNormalFromPoint(event.clientX, event.clientY);
+      if (hit) {
+        const posicion = `${hit.position.x} ${hit.position.y} ${hit.position.z}`;
+        prompt("Copia esta coordenada (data-position) y pégala en GitHub:", posicion);
       }
     });
   </script>
