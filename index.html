@@ -11,10 +11,10 @@
       padding: 0; 
       background-color: #1a1a1a; 
       font-family: sans-serif;
-      overflow: hidden; /* Evita barras de desplazamiento */
+      overflow: hidden;
     }
     
-    /* Estilos para el cartel del título */
+    /* Cartel del Título (Arriba Centro) */
     .cartel-titulo {
       position: absolute;
       top: 30px;
@@ -26,7 +26,7 @@
       border-radius: 12px;
       text-align: center;
       z-index: 10;
-      backdrop-filter: blur(4px); /* Efecto cristal transparente */
+      backdrop-filter: blur(4px);
       border: 1px solid rgba(255, 255, 255, 0.2);
     }
     .cartel-titulo h1 {
@@ -34,10 +34,34 @@
       font-size: 26px;
       letter-spacing: 1px;
     }
-    .cartel-titulo p {
-      margin: 5px 0 0 0;
-      font-size: 15px;
-      color: #cccccc;
+
+    /* Cartel de Integrantes (Abajo Izquierda) */
+    .cartel-integrantes {
+      position: absolute;
+      bottom: 30px;
+      left: 30px;
+      background: rgba(0, 0, 0, 0.6);
+      color: white;
+      padding: 15px 25px;
+      border-radius: 12px;
+      z-index: 10;
+      backdrop-filter: blur(4px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      min-width: 160px;
+    }
+    .cartel-integrantes h2 {
+      margin: 0 0 10px 0;
+      font-size: 16px;
+      color: #ffffff;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+      padding-bottom: 5px;
+    }
+    .cartel-integrantes ul {
+      margin: 0;
+      padding-left: 18px;
+      font-size: 14px;
+      color: #dddddd;
+      line-height: 1.6;
     }
 
     model-viewer { 
@@ -53,7 +77,20 @@
     <h1>Proyecto de Matemática</h1>
   </div>
 
-  <!-- Visor 3D con luces corregidas para resaltar alturas -->
+  <!-- Cuadro de Integrantes -->
+  <div class="cartel-integrantes">
+    <h2>Integrantes:</h2>
+    <ul>
+      <li>DARICKXS</li>
+      <li>Nuriel</li>
+      <li>Yusey</li>
+      <li>Yoselin</li>
+      <li>Chenoa</li>
+      <li>Damaris</li>
+    </ul>
+  </div>
+
+  <!-- Visor 3D -->
   <model-viewer 
     id="maqueta" 
     src="maqueta.glb" 
@@ -70,7 +107,6 @@
 
     viewer.addEventListener('load', () => {
       for (const material of viewer.model.materials) {
-        // Tono beige ligeramente más oscuro y mate para que la luz dibuje sombras
         material.pbrMetallicRoughness.setBaseColorFactor([0.75, 0.70, 0.60, 1]);
         material.pbrMetallicRoughness.setRoughnessFactor(1);
         material.pbrMetallicRoughness.setMetallicFactor(0);
