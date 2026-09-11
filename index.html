@@ -14,7 +14,7 @@
       overflow: hidden;
     }
     
-    /* Cartel del Título */
+    /*  titulo */
     .cartel-titulo {
       position: absolute; top: 30px; left: 50%; transform: translateX(-50%);
       background: rgba(0, 0, 0, 0.6); color: white; padding: 15px 35px;
@@ -23,7 +23,7 @@
     }
     .cartel-titulo h1 { margin: 0; font-size: 26px; letter-spacing: 1px; }
 
-    /* Cartel de Integrantes */
+    /* Integrantes */
     .cartel-integrantes {
       position: absolute; bottom: 30px; left: 30px;
       background: rgba(0, 0, 0, 0.6); color: white; padding: 15px 25px;
@@ -35,7 +35,7 @@
     }
     .cartel-integrantes ul { margin: 0; padding-left: 18px; font-size: 14px; color: #dddddd; line-height: 1.6; }
 
-    /* Diseño de las etiquetas 3D */
+    /* Diseño de etiquetas 3D */
     .etiqueta-3d {
       background: rgba(255, 255, 255, 0.9);
       color: #000;
@@ -68,7 +68,7 @@
 
   <model-viewer id="maqueta" src="maqueta.glb" camera-controls auto-rotate shadow-intensity="2" shadow-softness="1" exposure="0.7" environment-image="neutral">
     
-    <!-- TUS 5 ETIQUETAS ESTÁN AQUÍ -->
+    <!-- Etiquetas de noombres -->
     <button class="etiqueta-3d" slot="hotspot-1" data-position="19.74410057067871 4.846657719923996 -36.73181993641691" data-normal="0 1 0">Hospital</button>
     <button class="etiqueta-3d" slot="hotspot-2" data-position="-43.72760009765631 6.137501788925633 2.1175539872553735" data-normal="0 1 0">Colegio</button>
     <button class="etiqueta-3d" slot="hotspot-3" data-position="24.585311025772143 13.591987469016232 -6.44793800330774" data-normal="0 1 0">Mercado de abastos</button>
@@ -81,7 +81,7 @@
     const viewer = document.querySelector('#maqueta');
 
 
-    // Herramienta para obtener coordenadas con doble clic
+    // coordenadas
     viewer.addEventListener('dblclick', (event) => {
       const hit = viewer.positionAndNormalFromPoint(event.clientX, event.clientY);
       if (hit) {
